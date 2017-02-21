@@ -1,29 +1,28 @@
 {
-  "name": "burger",
+  "name": "sequelizeburger",
   "version": "1.0.0",
-  "description": "json for burger app",
-  "main": "index.js",
+  "description": "sequelize orm burger assignment",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.2"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rxtATX/burger.git"
+    "url": "git+https://github.com/rxtATX/SequelizeBurger.git"
   },
-  "keywords": [
-    "burger"
-  ],
   "author": "rachel",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rxtATX/burger/issues"
+    "url": "https://github.com/rxtATX/SequelizeBurger/issues"
   },
-  "homepage": "https://github.com/rxtATX/burger#readme",
-  "dependencies": {
-    "body-parser": "^1.16.0",
-    "express": "^4.14.1",
-    "express-handlebars": "^3.0.0",
-    "method-override": "^2.3.7",
-    "mysql": "^2.13.0"
-  }
+  "homepage": "https://github.com/rxtATX/SequelizeBurger#readme"
 }

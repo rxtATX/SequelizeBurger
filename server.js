@@ -1,25 +1,42 @@
+// *****************************************************************************
+// Server.js - This file is the initial starting point for the Node/Express server.
+//
+// ******************************************************************************
+// *** Dependencies
+// =============================================================
 var express = require("express");
-var app = express();
-
-var path = require("path");
-app.use(express.static(process.cwd + "/public"));
-
-var methodOverride = require("method-override");
-app.use(methodOverride("_method"));
-
 var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
 
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = process.env.PORT || 8080;
 
-var exphbs = require("express-handlebars");
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// Requiring our models for syncing
+var db = require("./models");
 
-var routes = require("./controllers/burgers_controller.js");
+// Sets up the Express app to handle data parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-app.use("/", routes);
+// Static directory
+app.use(express.static("./public"));
 
-var PORT = 5000;
-app.listen(process.env.PORT || 5000, function() {
+// var exphbs = require("express-handlebars");
+
+// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// app.set("view engine", "handlebars");
+
+// Routes =============================================================
+
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
+
+// Syncing our sequelize models and then starting our express app
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
+  });
 });
