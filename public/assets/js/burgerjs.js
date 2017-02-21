@@ -30,7 +30,6 @@ $(document).ready(function() {
   // This function grabs burgers from the database and updates the view
   function getBurgers() {
     $.get("/api", function(data) {
-      console.log("Burgers", data);
       burgers = data;
       initializeRows();
     });
@@ -54,9 +53,10 @@ $(document).ready(function() {
     var burger = $(this)
       .parent()
       .data("burger");
-
     if (burger.devoured === false) {
+        console.log("inside");
          burger.devoured = true;
+         console.log(burger.devoured);
     }
     updateBurger(burger);
   }
@@ -69,7 +69,7 @@ $(document).ready(function() {
       .hide();
     $(this)
       .children("input.edit")
-      .val(currentBurger.text);
+      .val(currentBurger.burger_name);
     $(this)
       .children("input.edit")
       .show();
@@ -92,6 +92,7 @@ $(document).ready(function() {
           .val()
           .trim()
       };
+      console.log(updatedBurger);
       $(this).blur();
       updateBurger(updatedBurger);
     }
@@ -99,6 +100,7 @@ $(document).ready(function() {
 
   // This function updates a burger in our database
   function updateBurger(burger) {
+      console.log(burger);
     $.ajax({
       method: "PUT",
       url: "/api",
@@ -149,7 +151,7 @@ $(document).ready(function() {
     newInputRow.append(newDeleteBtn);
     newInputRow.append(newCompleteBtn);
     newInputRow.data("burger", burger);
-    if (burger.devoured) {
+    if (burger.devoured === true) {
       newBurgerSpan.css("text-decoration", "line-through");
     }
     return newInputRow;
