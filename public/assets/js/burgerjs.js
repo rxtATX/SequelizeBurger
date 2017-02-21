@@ -55,7 +55,9 @@ $(document).ready(function() {
       .parent()
       .data("burger");
 
-    burger.complete = !burger.complete;
+    if (burger.devoured === false) {
+         burger.devoured = true;
+    }
     updateBurger(burger);
   }
 
@@ -85,7 +87,7 @@ $(document).ready(function() {
         id: $(this)
           .data("burger")
           .id,
-        text: $(this)
+        burger_name: $(this)
           .children("input")
           .val()
           .trim()
@@ -130,7 +132,7 @@ $(document).ready(function() {
     var newInputRow = $("<li>");
     newInputRow.addClass("list-group-item burger-item");
     var newBurgerSpan = $("<span>");
-    newBurgerSpan.text(burger.text);
+    newBurgerSpan.text(burger.burger_name);
     newInputRow.append(newBurgerSpan);
     var newBurgerInput = $("<input>");
     newBurgerInput.attr("type", "text");
@@ -147,7 +149,7 @@ $(document).ready(function() {
     newInputRow.append(newDeleteBtn);
     newInputRow.append(newCompleteBtn);
     newInputRow.data("burger", burger);
-    if (burger.complete) {
+    if (burger.devoured) {
       newBurgerSpan.css("text-decoration", "line-through");
     }
     return newInputRow;
@@ -158,10 +160,10 @@ $(document).ready(function() {
     event.preventDefault();
     // if (!newItemInput.val().trim()) {   return; }
     var burger = {
-      text: newItemInput
+      burger_name: newItemInput
         .val()
         .trim(),
-      complete: false
+      devoured: false
     };
 
     // Posting the new burger, calling getBurgers when done
