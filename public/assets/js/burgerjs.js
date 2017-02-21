@@ -50,13 +50,15 @@ $(document).ready(function() {
   // This function sets a burgers complete attribute to the opposite of what it is
   // and then runs the updateBurger function
   function toggleComplete() {
+    var deadBtn = $(this)[0].lastChild;
+    console.log(deadBtn);
+    $(this)[0].removeChild(deadBtn);
+    console.log(deadBtn);
     var burger = $(this)
       .parent()
       .data("burger");
     if (burger.devoured === false) {
-        console.log("inside");
-         burger.devoured = true;
-         console.log(burger.devoured);
+      burger.devoured = true;
     }
     updateBurger(burger);
   }
@@ -64,6 +66,10 @@ $(document).ready(function() {
   // This function handles showing the input box for a user to edit a burger
   function editBurger() {
     var currentBurger = $(this).data("burger");
+    if (currentBurger.devoured === true) {
+      cancelEdit();
+      return;
+    }
     $(this)
       .children()
       .hide();
@@ -100,7 +106,6 @@ $(document).ready(function() {
 
   // This function updates a burger in our database
   function updateBurger(burger) {
-      console.log(burger);
     $.ajax({
       method: "PUT",
       url: "/api",
@@ -115,6 +120,9 @@ $(document).ready(function() {
   // This cancels any edits being made
   function cancelEdit() {
     var currentBurger = $(this).data("burger");
+    if (currentBurger === undefined) {
+      return false;
+    }
     $(this)
       .children()
       .hide();
@@ -143,13 +151,15 @@ $(document).ready(function() {
     newInputRow.append(newBurgerInput);
     var newDeleteBtn = $("<button>");
     newDeleteBtn.addClass("delete btn btn-default");
-    newDeleteBtn.text("x");
+    newDeleteBtn.text("Throw Out the Wrapper!");
     newDeleteBtn.data("id", burger.id);
+    newInputRow.append(newDeleteBtn);
+    if (burger.devoured === false) {
     var newCompleteBtn = $("<button>");
     newCompleteBtn.addClass("complete btn btn-default");
-    newCompleteBtn.text("✓");
-    newInputRow.append(newDeleteBtn);
+    newCompleteBtn.text("Devour That Burger!");
     newInputRow.append(newCompleteBtn);
+    }
     newInputRow.data("burger", burger);
     if (burger.devoured === true) {
       newBurgerSpan.css("text-decoration", "line-through");
