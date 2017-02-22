@@ -18,7 +18,7 @@ module.exports = function(app) {
     //     });
     // });
     app.get("/favicon.ico", function(req, res) {
-        res.send(204);
+        res.send(503);
     });
 
     app.post("/api", function(req, res) {
