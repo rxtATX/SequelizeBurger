@@ -1,4 +1,6 @@
 var db = require("../models");
+var express = require("require");
+var app = express();
 
 module.exports = function(app) {
 
@@ -18,7 +20,7 @@ module.exports = function(app) {
     //     });
     // });
     app.get("/favicon.ico", function(req, res) {
-        res.send(503);
+        res.send(204);
     });
 
     app.post("/api", function(req, res) {
