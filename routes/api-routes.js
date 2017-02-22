@@ -17,6 +17,9 @@ module.exports = function(app) {
     //             res.json(burgerdb);
     //     });
     // });
+    app.get("/favicon.ico", function(req, res) {
+        res.send(204);
+    });
 
     app.post("/api", function(req, res) {
         db.Burger.create({
