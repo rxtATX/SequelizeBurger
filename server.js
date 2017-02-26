@@ -33,7 +33,7 @@ app.use(express.static("./public"));
 require("./controllers/controller.js")(app);
 
 // Syncing our sequelize models and then starting our express app
-var PORT = process.env.PORT || 5000;
-app.listen(process.env.PORT || 5000, function() {
+var PORT = process.env.PORT || 8080;
+app.listen(process.env.PORT || 8080, function() {
     console.log("App listening on PORT " + PORT);
 });
